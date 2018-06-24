@@ -32,6 +32,7 @@ app.post("/", function(request, response) {
 
   function NTUCAdd(agent) {
     const ntucItem = request.body.queryResult.parameters["ntuc-item"][0];
+    console.log(ntucItem);
     if (allowedFood.indexOf(ntucItem) >= 0) {
       return rp({
         url: `${apiBase}/order`,
