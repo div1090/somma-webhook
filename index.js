@@ -54,20 +54,7 @@ app.post("/", function(request, response) {
           );
         });
     } else {
-      agent.add("Sorry, We dont have it at the moment.");
-      return rp({
-        url: `${apiBase}/query`,
-        qs: {
-          query: request.body
-        }
-      })
-        .then(res => {
-          console.log(res);
-          agent.add("Custom search");
-        })
-        .catch(err => {
-          agent.add("Unable to add");
-        });
+      agent.add("Sorry, We don't have it at the moment. Please check again");
     }
   }
 
