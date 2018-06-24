@@ -174,7 +174,7 @@ app.post("/", function(request, response) {
       .then(res => {
         const price = res.total || 35.6;
         const items = res.items || [1, 2, 3, 4, 5, 6, 7, 8];
-
+        console.log("price", price, items);
         agent.add(
           `You have ${
             items.length
