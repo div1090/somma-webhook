@@ -25,7 +25,7 @@ const foodNameMap = {
     "Done. I've added gluten free pasta and anchor cheddar cheese. Since you already bought 2 milk cartons, I'm not adding it again."
 };
 
-const apiBase = "http://000cc624.ngrok.io";
+const apiBase = "https://homeapi.fluidmap.io/";
 
 app.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
