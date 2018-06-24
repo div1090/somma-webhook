@@ -186,7 +186,7 @@ app.post("/", function(request, response) {
           //   } items in your cart. It costs you ${price} dollars. But you are ${diff} dollars away from free shipping. Do you want to shop more?`
           // );
           agent.add("hello there");
-          agent.setContext({ name: "checkout-followup" });
+          // agent.setContext({ name: "checkout-followup" });
         } else {
           console.log("nooooo");
           paymentNo();
