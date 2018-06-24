@@ -182,7 +182,7 @@ app.post("/", function(request, response) {
   }
 
   function paymentYes() {
-    agent.add("Sure! What would you like?");
+    agent.add("Sure!");
   }
 
   function paymentNo() {
