@@ -204,7 +204,8 @@ app.post("/", function(request, response) {
 
   function paymentNo() {
     return rp({
-      url: `${apiBase}/pay`,
+      url: `${apiBase}/checkout`,
+      method: "POST",
       json: true
     })
       .then(res => {
