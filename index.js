@@ -177,7 +177,7 @@ app.post("/", function(request, response) {
           agent.setContext({ name: "checkout-followup" });
         } else {
           console.log("nooooo");
-          paymentNo();
+          return paymentNo();
         }
       })
       .catch(err => {
