@@ -170,7 +170,7 @@ app.post("/", function(request, response) {
               items.length
             } items costing ${price} dollars. Another ${diff} dollars for free shipping. Want to shop more?`
           );
-          agent.setContext({ name: "checkout-followup" });
+          // agent.setContext({ name: "checkout-followup" });
         } else {
           console.log("nooooo");
           return paymentNo();
@@ -182,7 +182,7 @@ app.post("/", function(request, response) {
   }
 
   function paymentYes() {
-    agent.add("Sure!");
+    agent.add("Sure! What do you like?");
   }
 
   function paymentNo() {
