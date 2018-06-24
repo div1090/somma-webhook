@@ -31,8 +31,11 @@ app.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
 
   function NTUCAdd(agent) {
-    const ntucItem = request.body.queryResult.parameters["ntuc-item"][0];
+    let ntucItem = request.body.queryResult.parameters["ntuc-item"][0];
     console.log(ntucItem);
+    if (ntucItem == "chilli") {
+      ntucItem = "chilli crab";
+    }
     if (allowedFood.indexOf(ntucItem) >= 0) {
       return rp({
         url: `${apiBase}/order`,
