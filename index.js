@@ -195,7 +195,7 @@ app.post("/", function(request, response) {
       .then(res => {
         console.log("hello hello");
         agent.add(
-          "Great, I have placed your order with your O C B C card. Delivery on on Friday. I've also added  it to your calendar"
+          "Great, I have placed your order with your O C B C card. Delivery on Friday. I've also added  it to your calendar"
         );
       })
       .catch(err => {
