@@ -16,11 +16,11 @@ const allowedFood = [
 
 const foodNameMap = {
   egg: "Yep, I got you a pack of 10 eggs",
-  "toilet paper": "Done. It is ultra soft toilet tissue, 20 rolls",
+  "toilet paper": "Done. It is ultra soft tissue, 20 rolls",
   brownie:
-    "Sure, I added Nutella spread and white flour. Since you already have eggs in your cart, I'm not adding it again.",
+    "Sure, I added Nutella and white flour. As you already have eggs in your cart, I'm not adding it again.",
   "chilli crab":
-    "Done. I've added Alaska guys frozen crab, Panda oyster sauce and 7 other spices and sauces",
+    "Done. I've added frozen crab, Panda oyster sauce and 7 other spices",
   "mac and cheese":
     "Done. I've added gluten free pasta and anchor cheddar cheese. Since you already bought 2 milk cartons, I'm not adding it again."
 };
@@ -60,7 +60,7 @@ app.post("/", function(request, response) {
 
   function NTUCMilk(agent) {
     agent.add(
-      "Milk? We have an offer, would you like to buy 2 cartons for 3 dollars and 25 cents?"
+      "Milk? We have an offer for 2 cartons for 3 dollars and 25 cents. Want to buy one more?"
     );
     agent.setContext({ name: "add-milk-followup" });
   }
@@ -73,9 +73,7 @@ app.post("/", function(request, response) {
       }
     })
       .then(res => {
-        agent.add(
-          "Great! I added 2 cartons of Cow head fresh milk. Congrats on saving 95 cents."
-        );
+        agent.add("Great! I added 2 cartons of milk. You saved 95 cents.");
       })
       .catch(err => {
         agent.add(
@@ -92,9 +90,7 @@ app.post("/", function(request, response) {
       }
     })
       .then(res => {
-        agent.add(
-          "No problem, I just got you 1 carton of Cow head fresh milk."
-        );
+        agent.add("No problem, I just got you 1 carton fresh milk.");
       })
       .catch(err => {
         agent.add(
@@ -121,7 +117,7 @@ app.post("/", function(request, response) {
       }
     })
       .then(res => {
-        agent.add("Great! I have added bread and butter to your cart.");
+        agent.add("Great! I have added bread and butter.");
       })
       .catch(err => {
         agent.add(
@@ -172,7 +168,7 @@ app.post("/", function(request, response) {
           agent.add(
             `You have ${
               items.length
-            } items in your cart. It costs you ${price} dollars. But you are ${diff} dollars away from free shipping. Do you want to shop more?`
+            } items costing ${price} dollars. Another ${diff} dollars for free shipping. Want to shop more?`
           );
           agent.setContext({ name: "checkout-followup" });
         } else {
@@ -186,7 +182,7 @@ app.post("/", function(request, response) {
   }
 
   function paymentYes() {
-    agent.add("Sure! What would you like to add to your basket?");
+    agent.add("Sure! What would you like?");
   }
 
   function paymentNo() {
@@ -199,7 +195,7 @@ app.post("/", function(request, response) {
       .then(res => {
         console.log("hello hello");
         agent.add(
-          "Great, I have placed your order with your O C B C card and will be delivered on Friday. I've also added the delivery slot in your calendar. Good day!"
+          "Great, I have placed your order with your O C B C card. Delivery on on Friday. I've also added  it to your calendar"
         );
       })
       .catch(err => {
