@@ -178,6 +178,8 @@ app.post("/", function(request, response) {
         console.log("price", price, items.length);
         if (price >= 10 && price < 40) {
           const diff = 40 - price;
+          console.log(diff);
+          console.log("here");
           agent.add(
             `You have ${
               items.length
@@ -185,6 +187,7 @@ app.post("/", function(request, response) {
           );
           agent.setContext({ name: "checkout-followup" });
         } else {
+          console.log("nooooo");
           paymentNo();
         }
       })
