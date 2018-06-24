@@ -199,7 +199,7 @@ app.post("/", function(request, response) {
       .then(res => {
         console.log("hello hello");
         agent.add(
-          "Great, I have placed your order and will be delivered on Friday. I've also added the delivery slot in your calendar. Good day!"
+          "Great, I have placed your order with your O C B C card and will be delivered on Friday. I've also added the delivery slot in your calendar. Good day!"
         );
       })
       .catch(err => {
