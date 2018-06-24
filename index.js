@@ -169,7 +169,8 @@ app.post("/", function(request, response) {
   function payment() {
     console.log("calling payments");
     rp({
-      url: `${apiBase}/cart`
+      url: `${apiBase}/cart`,
+      json: true
     })
       .then(res => {
         const price = res.total || 35.6;
@@ -201,7 +202,8 @@ app.post("/", function(request, response) {
 
   function paymentNo() {
     rp({
-      url: `${apiBase}/pay`
+      url: `${apiBase}/pay`,
+      json: true
     })
       .then(res => {
         agent.add(
