@@ -175,16 +175,13 @@ app.post("/", function(request, response) {
       .then(res => {
         const price = res.total || 35.6;
         const items = res.items || [1, 2, 3, 4, 5, 6, 7, 8];
-        console.log("price", price, items);
-        agent.add(
-          `You have ${
-            items.length
-          } items in your cart. It costs you ${price} dollars.`
-        );
+        console.log("price", price, items.length);
         if (price >= 10 && price < 40) {
           const diff = 40 - price;
           agent.add(
-            `But you are ${diff} dollars away from free shipping. Do you want to shop more?`
+            `You have ${
+              items.length
+            } items in your cart. It costs you ${price} dollars. But you are ${diff} dollars away from free shipping. Do you want to shop more?`
           );
           agent.setContext({ name: "checkout-followup" });
         } else {
