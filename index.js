@@ -177,14 +177,15 @@ app.post("/", function(request, response) {
         const items = res.items || [1, 2, 3, 4, 5, 6, 7, 8];
         console.log("price", price, items.length);
         if (price >= 10 && price < 40) {
-          const diff = 30; //(40 - price).toFixed(2).toString();
+          const diff = "30"; //(40 - price).toFixed(2).toString();
           console.log(diff);
           console.log("here");
-          agent.add(
-            `You have ${
-              items.length
-            } items in your cart. It costs you ${price} dollars. But you are ${diff} dollars away from free shipping. Do you want to shop more?`
-          );
+          // agent.add(
+          //   `You have ${
+          //     items.length
+          //   } items in your cart. It costs you ${price} dollars. But you are ${diff} dollars away from free shipping. Do you want to shop more?`
+          // );
+          agent.add("hello there");
           agent.setContext({ name: "checkout-followup" });
         } else {
           console.log("nooooo");
