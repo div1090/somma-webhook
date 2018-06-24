@@ -190,17 +190,20 @@ app.post("/", function(request, response) {
   }
 
   function paymentNo() {
+    console.log("calling payment no");
     return rp({
       url: `${apiBase}/checkout`,
       method: "POST",
       json: true
     })
       .then(res => {
+        console.log("hello hello");
         agent.add(
           "Great, I have placed your order and will be delivered on Friday. I've also added the delivery slot in your calendar. Good day!"
         );
       })
       .catch(err => {
+        console.log("hello error");
         agent.add("Something went wrong with payment, please try again.");
       });
   }
