@@ -177,7 +177,7 @@ app.post("/", function(request, response) {
         const items = res.items || [1, 2, 3, 4, 5, 6, 7, 8];
         console.log("price", price, items.length);
         if (price >= 10 && price < 40) {
-          const diff = 40 - price;
+          const diff = 30; //(40 - price).toFixed(2).toString();
           console.log(diff);
           console.log("here");
           agent.add(
