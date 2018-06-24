@@ -15,10 +15,10 @@ const allowedFood = [
 ];
 
 const foodNameMap = {
-  egg: "Redmart Pack of 10 eggs",
-  "toilet paper": "Kneelex ultra soft toilet tissue (20 rolls)",
+  egg: "Yep, I got you a pack of 10 eggs",
+  "toilet paper": "Done. It is ultra soft toilet tissue, 20 rolls",
   brownie:
-    "Sure, I added Nutella hazzelhut spread and plain white flour. Since you already have eggs, I'm not adding it again.",
+    "Sure, I added Nutella spread and white flour. Since you already have eggs in your cart, I'm not adding it again.",
   "chilli crab":
     "Done. I've added Alaska guys frozen crab, Panda oyster sauce and 7 other spices and sauces",
   "mac and cheese":
@@ -32,7 +32,6 @@ app.post("/", function(request, response) {
 
   function NTUCAdd(agent) {
     const ntucItem = request.body.queryResult.parameters["ntuc-item"][0];
-    agent.add("Sure one moment..");
     if (allowedFood.indexOf(ntucItem) >= 0) {
       return rp({
         url: `${apiBase}/order`,
@@ -69,7 +68,9 @@ app.post("/", function(request, response) {
   }
 
   function NTUCMilk(agent) {
-    agent.add("We have an offer, would you like to buy 2 for 325?");
+    agent.add(
+      "Milk? We have an offer, would you like to buy 2 cartons for 3 dollars and 25 cents?"
+    );
     agent.setContext({ name: "add-milk-followup" });
   }
 
@@ -114,7 +115,7 @@ app.post("/", function(request, response) {
   function NTUCBread(agent) {
     const ntucItem = request.body.queryResult.parameters["ntuc-bread"];
     agent.add(
-      `You usually buy bread with butter. Would you like me to add ${
+      `You usually buy bread along with butter. Would you like me to add ${
         ntucItem === "bread" ? "butter" : "bread"
       } too?`
     );
@@ -167,13 +168,31 @@ app.post("/", function(request, response) {
 
   function payment() {
     console.log("calling payments");
-    const price = 42;
-    if (price >= 34 && price < 40) {
-      agent.add("You are close to free offer. Would you like to add more?");
-      agent.setContext({ name: "checkout-followup" });
-    } else {
-      agent.add("will proceed to pay");
-    }
+    rp({
+      url: `${apiBase}/cart`
+    })
+      .then(res => {
+        const price = res.total || 35.6;
+        const items = res.items || [1, 2, 3, 4, 5, 6, 7, 8];
+
+        agent.add(
+          `You have ${
+            items.length
+          } items in your cart. It costs you ${price} dollars.`
+        );
+        if (price >= 10 && price < 40) {
+          const diff = 40 - price;
+          agent.add(
+            `But you are ${diff} dollars away from free shipping. Do you want to shop more?`
+          );
+          agent.setContext({ name: "checkout-followup" });
+        } else {
+          paymentNo();
+        }
+      })
+      .catch(err => {
+        agent.add("Sorry there was an issue with your cart, please try again.");
+      });
   }
 
   function paymentYes() {
@@ -181,7 +200,17 @@ app.post("/", function(request, response) {
   }
 
   function paymentNo() {
-    agent.add("Cool, I will proceed to checkout and pay.");
+    rp({
+      url: `${apiBase}/pay`
+    })
+      .then(res => {
+        agent.add(
+          "Great, I have placed your order and will be delivered on Friday. I've also added the delivery slot in your calendar. Good day!"
+        );
+      })
+      .catch(err => {
+        agent.add("Something went wrong with payment, please try again.");
+      });
   }
 
   let intentMap = new Map();
